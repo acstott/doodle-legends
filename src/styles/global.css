@@ -1,0 +1,3 @@
+.card {
+    background-color: unset; /* This would undo inline styles */
+  }

@@ -1,0 +1,53 @@
+{
+    "name": "doodle-legends",
+    "version": "0.0.1",
+    "description": "A Reddit-integrated trading card game built with React, Redux, TypeScript, and Webpack.",
+    "main": "src/index.tsx",
+    "scripts": {
+        "start": "webpack serve --mode development",
+        "build": "webpack --mode production",
+        "build:dev": "cross-env REACT_APP_USE_MOCKS=true npm run build",
+        "build:prod": "cross-env REACT_APP_USE_MOCKS=false npm run build",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Amanda Stott",
+    "license": "MIT",
+    "dependencies": {
+        "@devvit/public-api": "^0.11.3",
+        "@reduxjs/toolkit": "^1.9.0",
+        "isomorphic-ws": "^5.0.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-redux": "^8.0.0",
+        "ws": "^8.18.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.26.0",
+        "@babel/preset-env": "^7.26.0",
+        "@babel/preset-react": "^7.25.9",
+        "@types/jest": "^29.5.14",
+        "@types/react": "^18.3.12",
+        "@types/react-dom": "^18.3.1",
+        "@types/webpack-env": "^1.17.0",
+        "babel-loader": "^9.2.1",
+        "cross-env": "^7.0.3",
+        "css-loader": "^6.11.0",
+        "eslint": "^9.16.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-react": "^7.37.2",
+        "eslint-plugin-react-hooks": "^5.0.0",
+        "html-webpack-plugin": "^5.6.3",
+        "jest": "^29.7.0",
+        "mini-css-extract-plugin": "^2.9.2",
+        "prettier": "^3.4.1",
+        "style-loader": "^3.3.4",
+        "ts-jest": "^29.2.5",
+        "ts-loader": "^9.5.1",
+        "typescript": "^5.7.2",
+        "vitest": "^2.1.6",
+        "webpack": "^5.96.1",
+        "webpack-bundle-analyzer": "^4.10.2",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^4.15.2"
+    }
+}

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true, 
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "jsx": "react-jsx",
+    "baseUrl": "./",                         // Base directory for aliases
+    "paths": {
+      "@components/*": ["src/components/*"], // Alias for components
+      "@game/*": ["src/game/*"],             // Alias for game logic
+      "@store/*": ["src/store/*"],           // Alias for Redux store
+      "@styles/*": ["src/styles/*"]          // Alias for styles
+    }
+  },
+  "include": ["src"]
+}
