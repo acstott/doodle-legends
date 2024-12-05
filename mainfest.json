@@ -1,0 +1,10 @@
+{
+    "name": "Doodle Legends",
+    "description": "A Reddit card game!",
+    "entryPoint": "dist/main.js",
+    "type": "app",
+    "permissions": [
+      "customPostTypes",
+      "menuItems"
+    ]
+}

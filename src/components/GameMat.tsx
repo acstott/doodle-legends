@@ -1,23 +1,21 @@
 import React from 'react';
-import PlayerHand from './PlayerHand';
+import { Provider } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store/store';
+import store, { RootState } from '../store/store';
+import { generatePlayerHand, generateGameCenter } from '../utils/generators';
 
 const GameMat: React.FC = () => {
-  const currentPlayer = useSelector((state: RootState) => state.game.currentPlayer);
+  const hands = useSelector((state: RootState) => state.game.hands);
+  const deckCount = useSelector((state: RootState) => state.game.deck.length);
 
   return (
-    <div className="game-mat">
-      <h2>Current Turn: {currentPlayer}</h2>
-      <div className="player-zone opponent">
-        <h3>Player 2</h3>
-        <PlayerHand player="Player 2" isFaceDown={true} />
+    <Provider store={store}>
+      <div className="game-mat">
+        {generatePlayerHand('Player 1', hands['Player 1'])}
+        {generateGameCenter(deckCount)}
+        {generatePlayerHand('Player 2', hands['Player 2'])}
       </div>
-      <div className="player-zone player">
-        <h3>Player 1</h3>
-        <PlayerHand player="Player 1" isFaceDown={false} />
-      </div>
-    </div>
+    </Provider>
   );
 };
 

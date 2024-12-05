@@ -45,12 +45,15 @@ doodle-legends/
 │   │   ├── PlayerHand.tsx      # Hand management
 │   │   ├── HealthBar.tsx       # Health display
 │   │   ├── TurnLog.tsx         # Action log
+│   │   ├── GameMat.tsx         # Main game mat layout
 │   │   └── MultiplayerGame.tsx # Multiplayer features
 │   ├── game/                   # Core game logic
 │   │   ├── Card.ts             # Card class and logic
 │   │   ├── GameState.ts        # Game state initialization
 │   │   ├── Actions.ts          # Actions and effects logic
 │   │   └── GameTurn.ts         # Turn sequence management
+│   ├── utils/                  # Utility functions
+│   │   └── generators.tsx      # JSX generators for cards and UI
 │   ├── store/                  # Redux store and slices
 │   │   ├── store.ts            # Redux store configuration
 │   │   ├── gameSlice.ts        # Slice for game state and actions
@@ -61,8 +64,25 @@ doodle-legends/
 │   │   ├── components.css      # Component-specific styles
 │   │   └── global.css          # Global styles
 │   ├── main.tsx                # Entry point for Devvit integration
+├── dist/                       # Output directory (generated after build)
+│   ├── main.js                 # Compiled entry point for Devvit
+├── manifest.json               # Devvit app configuration
 ├── package.json                # Project dependencies and scripts
 ├── tsconfig.json               # TypeScript configuration
 ├── webpack.config.js           # Webpack configuration
-└── dist/                       # Output directory (generated after build)
+└── README.md                   # Project documentation
+```
+
+``` Play Mat Layout
+----------------------------------------------
+|            Player 2 (AI) - Health: XX      |
+| [Card Back] [Card Back] [Card Back]        |
+|--------------------------------------------|
+|             Action Log / Turn Info         |
+| Current Turn: Player X                     |
+| Last Move: "Player X played Fire Dragon!"  |
+|--------------------------------------------|
+|            Player 1 (You) - Health: XX     |
+|[Card 1] [Card 2] [Card 3] [Card 4] [Card 5]|
+----------------------------------------------
 ```

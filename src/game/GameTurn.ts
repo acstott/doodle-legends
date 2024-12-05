@@ -12,10 +12,15 @@ export function switchTurn(gameState: GameState): GameState {
   return {
     ...gameState,
     currentPlayer: nextPlayer,
+    actions: {
+      ...gameState.actions,
+      [nextPlayer]: calculateActionsPerTurn(nextPlayer, gameState),
+    },
+    phase: 'draw', // Reset to the first phase of the next turn
   };
 }
 
-// Function to calculate actions per turn (if mechanics are tied to actions)
+// Function to calculate actions per turn
 export function calculateActionsPerTurn(player: string, gameState: GameState): number {
   const lands = gameState.hands[player].filter((card) => card.type === 'water' || card.type === 'fire');
   return lands.length; // Example: Actions are determined by the number of "land" cards
@@ -23,11 +28,7 @@ export function calculateActionsPerTurn(player: string, gameState: GameState): n
 
 // Function to play a card
 export function playCard(card: Card, player: string, gameState: GameState): GameState {
-  // Remove the card from the player's hand
   const updatedHand = gameState.hands[player].filter((c) => c !== card);
-
-  // Example: Log the action (expand logic later)
-  console.log(`${player} played ${card.name}`);
 
   return {
     ...gameState,
@@ -35,5 +36,18 @@ export function playCard(card: Card, player: string, gameState: GameState): Game
       ...gameState.hands,
       [player]: updatedHand,
     },
+    playedCards: {
+      ...gameState.playedCards,
+      [player]: [...(gameState.playedCards[player] || []), card],
+    },
+  };
+}
+
+// Function to advance the phase of the game
+export function advancePhase(gameState: GameState): GameState {
+  const nextPhase = gameState.phase === 'draw' ? 'play' : gameState.phase === 'play' ? 'end' : 'draw';
+  return {
+    ...gameState,
+    phase: nextPhase,
   };
 }

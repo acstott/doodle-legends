@@ -22,5 +22,5 @@
       "@styles/*": ["src/styles/*"]          // Alias for styles
     }
   },
-  "include": ["src"]
+  "include": ["src/**/*"]
 }

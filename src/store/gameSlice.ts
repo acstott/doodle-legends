@@ -1,10 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import Card from '../game/Card';
+import Card from '@game/Card';
 
 interface GameState {
   hands: Record<string, Card[]>;
   deck: Card[];
   currentPlayer: string;
+  health: Record<string, number>;
+  playedCards: Record<string, Card[]>;
+  log: string[]; // Add log to track game events
 }
 
 const initialState: GameState = {
@@ -18,41 +21,51 @@ const initialState: GameState = {
     new Card('Ice Spirit', 'water', 2, 'Freezes an enemy', 50, 5),
   ],
   currentPlayer: '', // 'Player 1' or 'Player 2'
+  health: { 'Player 1': 100, 'Player 2': 100 },
+  playedCards: { 'Player 1': [], 'Player 2': [] },
+  log: [],
 };
 
-
-  const gameSlice = createSlice({
-    name: 'game',
-    initialState,
-    reducers: {
-      shuffleDeck: (state) => {
-        for (let i = state.deck.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [state.deck[i], state.deck[j]] = [state.deck[j], state.deck[i]];
-        }
-      },
-      dealHands: (state) => {
-        state.hands['Player 1'] = state.deck.splice(0, 5);
-        state.hands['Player 2'] = state.deck.splice(0, 5);
-      },
-      determineStartingPlayer: (state) => {
-        state.currentPlayer = Math.random() > 0.5 ? 'Player 1' : 'Player 2';
-      },
-      playCard: (state, action: PayloadAction<{ player: string; card: Card }>) => {
-        const { player, card } = action.payload;
-        state.hands[player] = state.hands[player].filter((c) => c !== card);
-      
-        // Example: Apply card effect (expand logic later)
-        console.log(`${card.name} played by ${player}`);
-      },
-      switchTurn: (state) => {
-        state.currentPlayer = state.currentPlayer === 'Player 1' ? 'Player 2' : 'Player 1';
-      },      
-      nextTurn: (state) => {
-        state.currentPlayer = state.currentPlayer === 'Player 1' ? 'Player 2' : 'Player 1';
-      },
+const gameSlice = createSlice({
+  name: 'game',
+  initialState,
+  reducers: {
+    shuffleDeck: (state) => {
+      for (let i = state.deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [state.deck[i], state.deck[j]] = [state.deck[j], state.deck[i]];
+      }
     },
-  });
-  
-  export const { shuffleDeck, dealHands, determineStartingPlayer, nextTurn, playCard } = gameSlice.actions;
-  export default gameSlice.reducer;
+    dealHands: (state) => {
+      state.hands['Player 1'] = state.deck.splice(0, 5);
+      state.hands['Player 2'] = state.deck.splice(0, 5);
+    },
+    determineStartingPlayer: (state) => {
+      state.currentPlayer = Math.random() > 0.5 ? 'Player 1' : 'Player 2';
+    },
+    playCard: (state, action: PayloadAction<{ player: string; card: Card }>) => {
+      const { player, card } = action.payload;
+      state.hands[player] = state.hands[player].filter((c) => c !== card);
+
+      // Example: Apply card effect (expand logic later)
+      console.log(`${card.name} played by ${player}`);
+    },
+    switchTurn: (state) => {
+      state.currentPlayer = state.currentPlayer === 'Player 1' ? 'Player 2' : 'Player 1';
+    },
+    nextTurn: (state) => {
+      state.currentPlayer = state.currentPlayer === 'Player 1' ? 'Player 2' : 'Player 1';
+    },
+    addCardToDeck: (state, action: PayloadAction<Card>) => {
+      // Validate card type before adding to the deck
+      if (!Card.isValidType(action.payload.type)) {
+        throw new Error(`Invalid card type: ${action.payload.type}`);
+      }
+      state.deck.push(action.payload);
+    },
+  },
+});
+
+export const { shuffleDeck, dealHands, determineStartingPlayer, nextTurn, playCard, addCardToDeck } =
+  gameSlice.actions;
+export default gameSlice.reducer;

@@ -6,6 +6,8 @@ interface GameState {
   currentPlayer: string; // Either 'Player 1' or 'Player 2'
   health: Record<string, number>; // Health points for each player
   playedCards: Record<string, Card[]>; // Cards that have been played by each player
+  phase: 'draw' | 'play' | 'end'; // Current phase of the game
+  actions: Record<string, number>; // Actions available per player
 }
 
 export default GameState;
