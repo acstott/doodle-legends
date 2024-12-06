@@ -46,20 +46,18 @@ doodle-legends/
 │   │   ├── HealthBar.tsx       # Health display
 │   │   ├── TurnLog.tsx         # Action log
 │   │   ├── GameMat.tsx         # Main game mat layout
-│   │   └── MultiplayerGame.tsx # Multiplayer features
+│   │   └── MultiplayerGame.tsx # Multiplayer features (coming soon)
 │   ├── game/                   # Core game logic
 │   │   ├── Card.ts             # Card class and logic
 │   │   ├── GameState.ts        # Game state initialization
-│   │   ├── Actions.ts          # Actions and effects logic
-│   │   └── GameTurn.ts         # Turn sequence management
+│   │   ├── GameTurn.ts         # Turn sequence and AI logic
 │   ├── utils/                  # Utility functions
 │   │   └── generators.tsx      # JSX generators for cards and UI
 │   ├── store/                  # Redux store and slices
 │   │   ├── store.ts            # Redux store configuration
 │   │   ├── gameSlice.ts        # Slice for game state and actions
-│   ├── websocket/              # WebSocket management
-│   │   ├── Server.ts           # WebSocket server logic
-│   │   └── Client.tsx          # WebSocket client for React
+│   ├── simulation/             # Turn sequence simulation
+│   │   └── TurnSimulation.ts   # Simulation of turns and AI behavior
 │   ├── styles/                 # Styles for the app
 │   │   ├── components.css      # Component-specific styles
 │   │   └── global.css          # Global styles

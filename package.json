@@ -8,7 +8,8 @@
         "build": "webpack --mode production",
         "build:dev": "cross-env REACT_APP_USE_MOCKS=true npm run build",
         "build:prod": "cross-env REACT_APP_USE_MOCKS=false npm run build",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "simulate": "npx ts-node src/simulation/TurnSimulation.ts"
     },
     "author": "Amanda Stott",
     "license": "MIT",

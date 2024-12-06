@@ -3,9 +3,10 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import ReactDOM from 'react-dom';
 import App from './App';
-import GameMat from './components/GameMat'; // Adjust the path as necessary
-import store from './store/store';
+import GameMat from '@components/GameMat'; // Adjust the path as necessary
+import store from '@store/store';
 import { Provider } from 'react-redux';
+import '@styles/components.css'; // Adjust path if necessary
 
 // Define a React component for server-side rendering
   ReactDOMServer.renderToString(

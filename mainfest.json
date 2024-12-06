@@ -1,10 +1,17 @@
 {
-    "name": "Doodle Legends",
-    "description": "A Reddit card game!",
-    "entryPoint": "dist/main.js",
-    "type": "app",
-    "permissions": [
-      "customPostTypes",
-      "menuItems"
-    ]
+  "name": "Doodle Legends",
+  "description": "A Reddit card game!",
+  "entryPoint": "dist/main.js",
+  "type": "app",
+  "permissions": ["customPostTypes", "menuItems"],
+  "actors": [
+  {
+    "type": "subreddit",
+    "name": "DoodleLegends"
+  },
+  {
+    "type": "user",
+    "name": "u/doodle-legends"
+  }
+]
 }
