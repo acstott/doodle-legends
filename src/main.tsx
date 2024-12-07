@@ -1,30 +1,37 @@
-import { Devvit } from '@devvit/public-api';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
 import App from './App';
 import GameMat from '@components/GameMat'; // Adjust the path as necessary
 import store from '@store/store';
-import { Provider } from 'react-redux';
-import '@styles/components.css'; // Adjust path if necessary
+import '../styles/components.css'; // Adjust path if necessary
+import '../styles/global.css'; // Adjust path if necessary
+import { Devvit } from '@devvit/public-api';
 
-// Define a React component for server-side rendering
-  ReactDOMServer.renderToString(
-    ReactDOMServer.renderToStaticMarkup(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    )
-  );
+// React Rendering
+const root = createRoot(document.getElementById('root')!);
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);
 
-// Configure Devvit
+// Devvit Configuration
 Devvit.configure({});
 
 // Define a custom post type for Doodle Legends
 Devvit.addCustomPostType({
   name: 'doodle_game',
   description: 'Play Doodle Legends in this post!',
-  render: () => <GameMat />, // Reference the GameMat component directly
+  render: () => (
+    <Provider store={store}>
+      <React.StrictMode>
+        <GameMat />
+      </React.StrictMode>
+    </Provider>
+  ), // Reference the GameMat component directly
 });
 
 // Add "Play Game" menu item
@@ -53,7 +60,7 @@ Devvit.addMenuItem({
     try {
       const card = {
         name: 'Fire Dragon',
-        type: 'Fire',
+        type: 'fire',
         description: 'Breathes fire to damage enemies.',
         effect: 'Deals 10 damage to the opponent.',
       };

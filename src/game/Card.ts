@@ -9,7 +9,8 @@ class Card {
     public hp: number = 0,
     public attack: number = 0,
     public health: number = 0,
-    public damage: number = 0
+    public damage: number = 0,
+    public effect?: string
   ) {}
 
   // Static method to validate card type

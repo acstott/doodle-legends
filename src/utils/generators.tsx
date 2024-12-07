@@ -24,9 +24,27 @@ export function generateCards(
   cards: Card[],
   onPlay?: (card: Card) => void
 ): JSX.Element[] {
-  return cards.map((card) =>
-    generateCard(card, () => onPlay && onPlay(card))
-  );
+  return cards.map((card, index) => (
+    <div key={index} className={`card ${card.type}`}>
+      <div className="card-header">
+        <span>{card.name}</span>
+        <span>{card.cost} AP</span>
+      </div>
+      <div className="card-content">{card.description}</div>
+      <div className="card-stats">
+        <span>HP: {card.hp}</span>
+        <span>DMG: {card.attack}</span>
+      </div>
+      {onPlay && (
+        <button
+          className="card-play-button"
+          onClick={() => onPlay(card)}
+        >
+          Play
+        </button>
+      )}
+    </div>
+  ));
 }
 
 // Generate a player's hand

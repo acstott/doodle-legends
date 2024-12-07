@@ -16,6 +16,7 @@ interface GameState {
   health: Record<string, number>;
   log: string[];
   discardPile: Card[];
+  playedCards: Record<string, Card[]>; // Newly added for cards on the play mat
 }
 
 const initialState: GameState = {
@@ -32,6 +33,7 @@ const initialState: GameState = {
   currentPlayer: Math.random() > 0.5 ? 'Player 1' : 'Player 2',
   health: { 'Player 1': 100, 'Player 2': 100 },
   discardPile: [],
+  playedCards: { 'Player 1': [], 'Player 2': [] },
 };
 
 const gameSlice = createSlice({
@@ -56,11 +58,21 @@ const gameSlice = createSlice({
     },
     playCard: (state, action: PayloadAction<{ player: string; card: Card }>) => {
       const { player, card } = action.payload;
+
+      // Remove card from player's hand
       state.hands[player] = state.hands[player].filter((c) => c !== card);
+
+      // Add the card to the play mat
+      state.playedCards[player] = [...(state.playedCards[player] || []), card];
+
+      // Deal damage to the opponent
       const opponent = player === 'Player 1' ? 'Player 2' : 'Player 1';
       state.health[opponent] = Math.max(0, state.health[opponent] - card.damage);
+
+      // Add the card to the discard pile
       state.discardPile.push(card);
 
+      // Log the action
       state.log.push(`${player} played ${card.name}, dealing ${card.damage} damage to ${opponent}.`);
 
       if (state.health[opponent] === 0) {

@@ -49,8 +49,11 @@ doodle-legends/
 │   │   └── MultiplayerGame.tsx # Multiplayer features (coming soon)
 │   ├── game/                   # Core game logic
 │   │   ├── Card.ts             # Card class and logic
+│   │   ├── Deck.ts             # Deck configuration with 40 cards
 │   │   ├── GameState.ts        # Game state initialization
 │   │   ├── GameTurn.ts         # Turn sequence and AI logic
+│   ├── rules/                  # Rules engine
+│   │   └── RulesEngine.ts      # Logic for handling damage, effects, and game mechanics
 │   ├── utils/                  # Utility functions
 │   │   └── generators.tsx      # JSX generators for cards and UI
 │   ├── store/                  # Redux store and slices
