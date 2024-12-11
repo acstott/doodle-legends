@@ -7,7 +7,7 @@ interface GameState {
   currentPlayer: string;
   health: Record<string, number>;
   playedCards: Record<string, Card[]>;
-  log: string[]; // Add log to track game events
+  log: string[]; // Tracks game events
 }
 
 const initialState: GameState = {
@@ -50,9 +50,8 @@ const gameSlice = createSlice({
     playCard: (state, action: PayloadAction<{ player: string; card: Card }>) => {
       const { player, card } = action.payload;
       state.hands[player] = state.hands[player].filter((c) => c !== card);
-
-      // Example: Apply card effect (expand logic later)
-      console.log(`${card.name} played by ${player}`);
+      state.playedCards[player].push(card); // Add card to playedCards
+      state.log.push(`${card.name} was played by ${player}`);
     },
     switchTurn: (state) => {
       state.currentPlayer = state.currentPlayer === 'Player 1' ? 'Player 2' : 'Player 1';
@@ -61,7 +60,6 @@ const gameSlice = createSlice({
       state.currentPlayer = state.currentPlayer === 'Player 1' ? 'Player 2' : 'Player 1';
     },
     addCardToDeck: (state, action: PayloadAction<Card>) => {
-      // Validate card type before adding to the deck
       if (!Card.isValidType(action.payload.type)) {
         throw new Error(`Invalid card type: ${action.payload.type}`);
       }

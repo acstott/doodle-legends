@@ -1,21 +1,23 @@
 import React from 'react';
 import Card from '@game/Card'; // Ensure the correct path to the Card class
 
-export function generateCard(
-  card: Card,
-  onPlay: () => void
-): JSX.Element {
-  // Determine the type-based class name
-  const typeClass = ['water', 'fire', 'magic', 'lightning'].includes(card.type)
-    ? card.type
-    : 'default';
+// Utility function for type-based class names
+const getTypeClass = (type: string) =>
+  ['water', 'fire', 'magic', 'lightning'].includes(type) ? type : 'default';
+
+export function generateCard(card: Card, onPlay?: () => void): JSX.Element {
+  const typeClass = getTypeClass(card.type);
 
   return (
     <div className={`card ${typeClass}`}>
       <h3>{card.name}</h3>
       <p>Type: {card.type}</p>
       <p>Cost: {card.cost}</p>
-      <button className="card-play-button" onClick={onPlay}>Play</button>
+      {onPlay && (
+        <button className="card-button" onClick={onPlay}>
+          Play
+        </button>
+      )}
     </div>
   );
 }
@@ -25,7 +27,7 @@ export function generateCards(
   onPlay?: (card: Card) => void
 ): JSX.Element[] {
   return cards.map((card, index) => (
-    <div key={index} className={`card ${card.type}`}>
+    <div key={index} className={`card ${getTypeClass(card.type)}`}>
       <div className="card-header">
         <span>{card.name}</span>
         <span>{card.cost} AP</span>
@@ -37,7 +39,7 @@ export function generateCards(
       </div>
       {onPlay && (
         <button
-          className="card-play-button"
+          className="card-action"
           onClick={() => onPlay(card)}
         >
           Play
@@ -47,7 +49,6 @@ export function generateCards(
   ));
 }
 
-// Generate a player's hand
 export function generatePlayerHand(player: string, cards: Card[]): JSX.Element {
   return (
     <div className={`player-area player-${player.toLowerCase().replace(' ', '-')}`}>
@@ -59,7 +60,6 @@ export function generatePlayerHand(player: string, cards: Card[]): JSX.Element {
   );
 }
 
-// Generate the game center (deck, discard pile, play area)
 export function generateGameCenter(deckCount: number): JSX.Element {
   return (
     <div className="play-area">
@@ -71,7 +71,7 @@ export function generateGameCenter(deckCount: number): JSX.Element {
 }
 
 export function generateHealthBar(health: number, maxHealth: number): JSX.Element {
-  const healthPercentage = (health / maxHealth) * 100;
+  const healthPercentage = Math.max(0, (health / maxHealth) * 100); // Avoid negative values
 
   return (
     <div className="health-bar">
@@ -83,12 +83,10 @@ export function generateHealthBar(health: number, maxHealth: number): JSX.Elemen
   );
 }
 
-// Generate log entries for turn 
 export function generateLogEntries(log: string[]): JSX.Element[] {
   return log.map((entry, index) => <li key={index}>{entry}</li>);
 }
 
-// Generate message for static content 
 export function generateStaticMessage(message: string): JSX.Element {
   return <h1>{message}</h1>;
 }

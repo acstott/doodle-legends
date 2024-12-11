@@ -25,7 +25,18 @@ type Player = 'Player 1' | 'Player 2';
 gameState.currentPlayer = determineStartingPlayer() as Player;
 console.log(`Starting player: ${gameState.currentPlayer}`);
 
-// Simulate a turn sequence
+// Function to log the game state
+const logGameState = (gameState: GameState) => {
+  console.log(`Current Player: ${gameState.currentPlayer}`);
+  console.log('Player 1 Health:', gameState.health['Player 1']);
+  console.log('Player 2 Health:', gameState.health['Player 2']);
+  console.log('Player 1 Hand:', gameState.hands['Player 1']);
+  console.log('Player 2 Hand:', gameState.hands['Player 2']);
+  console.log('Discard Pile:', gameState.discardPile);
+  console.log('Log:', gameState.log);
+};
+
+// Simulate a turn sequence for Player 1
 console.log("\n--- Player 1's Turn ---");
 
 // Draw phase
@@ -63,3 +74,6 @@ if (gameState.currentPlayer === 'Player 2') {
   console.log("\n--- AI's Turn ---");
   gameState = aiTurn(gameState);
 }
+
+// Log the game state at the end of the turn
+logGameState(gameState);

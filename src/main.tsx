@@ -4,8 +4,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import GameMat from '@components/GameMat'; // Adjust the path as necessary
 import store from '@store/store';
-import '../styles/components.css'; // Adjust path if necessary
-import '../styles/global.css'; // Adjust path if necessary
+import '@styles/components.css'; // Adjust path if necessary
 import { Devvit } from '@devvit/public-api';
 
 // React Rendering
@@ -35,22 +34,22 @@ Devvit.addCustomPostType({
 });
 
 // Add "Play Game" menu item
-Devvit.addMenuItem({
-  location: 'post',
-  label: 'Play Doodle Legends',
-  onPress: async (event, context) => {
-    try {
-      context.ui.showToast('Redirecting to Doodle Legends...');
-      const subreddit = 'DoodleLegends'; // Your subreddit name
-      const playtestUrl = `https://www.reddit.com/r/${subreddit}/?playtest=doodle-legends`;
+// Devvit.addMenuItem({
+//   location: 'post',
+//   label: 'Play Doodle Legends',
+//   onPress: async (event, context) => {
+//     try {
+//       context.ui.showToast('Redirecting to Doodle Legends...');
+//       const subreddit = 'DoodleLegends'; // Your subreddit name
+//       const playtestUrl = `https://www.reddit.com/r/${subreddit}/?playtest=doodle-legends`;
 
-      context.ui.navigateTo(playtestUrl); // Open the game URL in a new tab
-    } catch (error) {
-      console.error('Error launching Doodle Legends:', error);
-      context.ui.showToast('Something went wrong launching the game.');
-    }
-  },
-});
+//       context.ui.navigateTo(playtestUrl); // Open the game URL in a new tab
+//     } catch (error) {
+//       console.error('Error launching Doodle Legends:', error);
+//       context.ui.showToast('Something went wrong launching the game.');
+//     }
+//   },
+// });
 
 // Add "Play Card" menu item
 Devvit.addMenuItem({

@@ -21,6 +21,7 @@ module.exports = (env, argv) => {
         "@game": path.resolve(__dirname, "src/game/"),
         "@store": path.resolve(__dirname, "src/store/"),
         "@styles": path.resolve(__dirname, "src/styles/"),
+        "@utils": path.resolve(__dirname, "src/utils/")
       },
     },
     devtool: isProduction ? "source-map" : "inline-source-map",

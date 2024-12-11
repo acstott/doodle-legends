@@ -3,33 +3,36 @@ import { useDispatch } from 'react-redux';
 import { playCard } from '@store/gameSlice';
 import Card from '@game/Card';
 
-interface CardProps {
+interface CardComponentProps {
   card: Card;
   player: string; // 'Player 1' or 'Player 2'
-  onPlay?: () => void; // Optional onPlay callback
+  isPlayable: boolean; // Determines if the Play button should be shown
 }
 
-const CardComponent: React.FC<CardProps> = ({ card, player, onPlay }) => {
+const CardComponent: React.FC<CardComponentProps> = ({ card, player, isPlayable }) => {
   const dispatch = useDispatch();
 
-  const handlePlay = () => {
-    if (onPlay) {
-      onPlay();
+  const handlePlayClick = () => {
+    if (isPlayable) {
+      console.log(`Dispatching playCard for ${player} with card ${card.name}`);
+      dispatch(playCard({ player, card }));
     } else {
-      console.log(`${player} tried to play ${card.name}, but no action is defined.`);
+      console.log(`Play button clicked but ${player} is not the current player.`);
     }
   };
 
   return (
-    <div className={`card ${card.type}`}>
-      <h3>{card.name}</h3>
-      <p>Type: {card.type}</p>
-      <p>Cost: {card.cost} AP</p>
-      {onPlay && (
-        <button onClick={handlePlay} className="card-action">
+    <div className="card-content">
+        <div className="card-content">
+        {isPlayable && (
+        <button className="card-action" onClick={handlePlayClick}>
           Play
         </button>
-      )}
+      )}</div>
+      <div className="card-component">
+        <h3>{card.name}</h3>
+        <p>{card.description}</p>
+      </div>
     </div>
   );
 };

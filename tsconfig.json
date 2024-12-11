@@ -19,7 +19,8 @@
       "@components/*": ["src/components/*"], // Alias for components
       "@game/*": ["src/game/*"],             // Alias for game logic
       "@store/*": ["src/store/*"],           // Alias for Redux store
-      "@styles/*": ["src/styles/*"]          // Alias for styles
+      "@styles/*": ["src/styles/*"],          // Alias for styles
+      "@utils/*": ["src/utils/*"]            // Alias for utility functions
     }
   },
   "include": ["src/**/*", "src/simulation"]

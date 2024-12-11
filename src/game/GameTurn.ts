@@ -9,8 +9,6 @@ export function determineStartingPlayer(): string {
   return Math.random() > 0.5 ? 'Player 1' : 'Player 2';
 }
 
-
-
 export function dealInitialHands(gameState: GameStateType): GameStateType {
   console.log('Dealing cards...');
   console.log('Initial deck:', gameState.deck);

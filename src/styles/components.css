@@ -20,7 +20,48 @@
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Card Content Styling */
+/* Player Hand */
+.player-hand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+}
+
+.player-hand.player-1 {
+  background-color: #e3f2fd; /* Light Blue */
+}
+
+.player-hand.player-2 {
+  background-color: #c8e6c9; /* Light Green */
+}
+
+/* Cards in Horizontal Layout */
+.cards.horizontal {
+  display: flex;
+  flex-direction: row; /* Align cards horizontally */
+  gap: 10px; /* Spacing between cards */
+  justify-content: center;
+  flex-wrap: nowrap; /* Prevent wrapping by default */
+  overflow-x: auto; /* Enable horizontal scrolling if cards exceed container width */
+}
+
+/* Card Back (Hidden Cards) */
+.card-back {
+  width: 100px;
+  height: 150px;
+  background-color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  margin: 0.5rem;
+  border-radius: 4px;
+  border: 2px solid #444;
+}
+
+/* Card Content */
 .card-content {
   flex-grow: 1;
   display: flex;
@@ -29,7 +70,6 @@
   background: #ddd;
   margin: 10px 0;
   border-radius: 4px;
-  overflow: hidden; /* Ensures images fit properly */
 }
 
 .card-content img {
@@ -53,21 +93,10 @@
   font-size: 12px;
 }
 
-/* General Button styling */
-.card button {
-  padding: 0.5rem 1rem;
-  background-color: #007bff; /* Blue */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-/* Card Play Button */
-.card-play-button {
+/* Play Button */
+.card-action {
   padding: 6px 12px;
-  background-color: #28a745; /* Green */
+  background-color: #28a745;
   color: white;
   border: none;
   border-radius: 4px;
@@ -75,16 +104,8 @@
   transition: background-color 0.2s;
 }
 
-.card button:hover {
-  background-color: #0056b3; /* Darker blue */
-}
-
-.card-play-button {
-  background-color: #28a745; /* Green */
-}
-
-.card-play-button:hover {
-  background-color: #218838; /* Darker green */
+.card-action:hover {
+  background-color: #218838;
 }
 
 /* Type-Specific Styles */
@@ -108,18 +129,23 @@
 .player-hand {
   display: flex;
   flex-wrap: wrap;
-  margin: 1rem;
+  gap: 10px;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .player-hand.player-1 {
-  background-color: lightblue;
+  background-color: #e3f2fd; /* Light Blue */
 }
 
 .player-hand.player-2 {
-  background-color: lightgreen;
+  background-color: #c8e6c9; /* Light Green */
 }
 
-/* Card Back (for unplayed or hidden cards) */
+/* Card Back (Hidden Cards) */
 .card-back {
   width: 100px;
   height: 150px;
@@ -130,33 +156,31 @@
   color: white;
   font-size: 14px;
   margin: 0.5rem;
+  border-radius: 4px;
+  border: 2px solid #444;
 }
 
-/* Game Mat Styles */
+/* Game Mat */
 .game-mat {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  padding: 1rem;
-  background-color: #f0f0f0;
+  gap: 20px;
+  padding: 20px;
+  background-color: #fafafa;
   border-radius: 10px;
   border: 2px solid #333;
   max-width: 800px;
-  margin: auto;
-}
-
-.player-area {
-  width: 100%;
-  text-align: center;
+  margin: 20px auto;
 }
 
 .play-area {
   width: 100%;
-  background-color: #dcdcdc;
-  padding: 1rem;
+  background-color: #e0e0e0;
+  padding: 15px;
   border: 2px dashed #999;
   text-align: center;
+  border-radius: 5px;
 }
 
 .play-zone {
@@ -164,29 +188,51 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 /* Deck and Discard Pile */
 .deck, .discard-pile {
   padding: 10px;
-  background: #eaeaea;
+  background: #ffffff;
   border: 1px solid #ddd;
   border-radius: 5px;
   text-align: center;
   font-size: 14px;
-  margin: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Center Zone Styling */
+/* Center Zone */
 .center-zone {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  padding: 10px 0;
 }
 
-/* Animations and Transitions */
+/* Health Bar */
+.health-bar {
+  width: 200px;
+  height: 20px;
+  background-color: #ccc;
+  border: 1px solid #000;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 10px 0;
+  position: relative;
+}
+
+.health-bar-fill {
+  height: 100%;
+  background-color: #28a745; /* Green for health */
+  transition: width 0.3s ease-in-out; /* Smooth width adjustment */
+}
+
+/* Animations */
 .card-flip {
-  transition: transform 0.6s;
+  transition: transform 0.6s ease;
   transform-style: preserve-3d;
 }
 
@@ -194,7 +240,7 @@
   transform: rotateY(180deg);
 }
 
-/* General Utilities */
+/* Utilities */
 .hidden {
   display: none;
 }
@@ -203,21 +249,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-/* Health Bar*/
-.health-bar {
-  width: 100%;
-  height: 20px;
-  background-color: #ccc;
-  border: 1px solid #000;
-  border-radius: 4px;
-  overflow: hidden;
-  margin: 5px 0;
-}
-
-.health-bar-fill {
-  height: 100%;
-  background-color: #28a745; /* Green for health */
-  transition: width 0.3s ease; /* Smooth width adjustment */
 }

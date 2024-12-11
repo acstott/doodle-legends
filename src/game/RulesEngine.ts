@@ -17,9 +17,7 @@ export default class RulesEngine {
     gameState.health[opponent] = Math.max(0, gameState.health[opponent] - card.attack);
 
     // Log the attack
-    gameState.log.push(
-      `${player} played ${card.name}, dealing ${card.attack} damage to ${opponent}.`
-    );
+    gameState.log.push(`${player} played ${card.name}, dealing ${card.attack} damage to ${opponent}.`);
 
     // Handle card-specific effects
     if (card.effect) {
@@ -30,11 +28,11 @@ export default class RulesEngine {
           break;
         case 'stun':
           gameState.log.push(`${card.name} stunned ${opponent}, skipping their next turn.`);
-          // Additional stun logic could go here
+          // Add logic for marking the opponent's turn as skipped
           break;
         case 'poison':
           gameState.log.push(`${card.name} poisoned ${opponent}, causing damage over time.`);
-          // Additional poison logic could go here
+          // Add logic for tracking poison damage
           break;
         default:
           gameState.log.push(`${card.name} had no special effect.`);
@@ -51,8 +49,9 @@ export default class RulesEngine {
   }
 
   static moveToDiscardPile(card: Card, player: Player, gameState: LocalGameState): LocalGameState {
+    // Ensure the discard pile exists
     if (!gameState.discardPile[player]) {
-      gameState.discardPile[player] = []; // Ensure discard pile exists
+      gameState.discardPile[player] = [];
     }
     gameState.discardPile[player].push(card);
     gameState.log.push(`${card.name} was moved to ${player}'s discard pile.`);

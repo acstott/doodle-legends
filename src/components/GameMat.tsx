@@ -1,21 +1,40 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { useSelector } from 'react-redux';
-import store, { RootState } from '../store/store';
-import { generatePlayerHand, generateGameCenter } from '../utils/generators';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { playCard } from '../store/gameSlice';
+import Card from '@game/Card'; // Adjust the path as needed
 
 const GameMat: React.FC = () => {
-  const hands = useSelector((state: RootState) => state.game.hands);
-  const deckCount = useSelector((state: RootState) => state.game.deck.length);
+  const dispatch = useDispatch();
+  const playedCards = useSelector((state: RootState) => state.game.playedCards);
+  const currentPlayer = useSelector((state: RootState) => state.game.currentPlayer);
+
+  const handleCardClick = (player: string, card: Card) => {
+    dispatch(playCard({ player, card }));
+  };
 
   return (
-    <Provider store={store}>
-      <div className="game-mat">
-        {generatePlayerHand('Player 1', hands['Player 1'])}
-        {generateGameCenter(deckCount)}
-        {generatePlayerHand('Player 2', hands['Player 2'])}
+    <div className="game-mat">
+      <div className="play-zone">
+        {Object.entries(playedCards).map(([player, cards]) => (
+          <div key={player} className={`player-zone player-${player.toLowerCase().replace(' ', '-')}`}>
+            <h3>{player}</h3>
+            <div className="cards">
+              {cards.map((card, index) => (
+                <div
+                  key={index}
+                  className={`card ${card.type}`}
+                  onClick={() => handleCardClick(player, card)}
+                >
+                  <h4>{card.name}</h4>
+                  <p>{card.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
-    </Provider>
+    </div>
   );
 };
 
